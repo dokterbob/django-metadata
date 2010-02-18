@@ -36,9 +36,9 @@ class PublicationAbstractBase(DateAbstractBase):
         abstract = True
         ordering = ['-publish_date', ] + DateAbstractBase.Meta.ordering
         get_latest_by = 'publish_date'
-        
+
+    objects = models.Manager()        
     published = PublicationManager()
-    objects = models.Manager()
     
     publish_date = models.DateField(verbose_name=_('publication date'), default=default_publish_date, null=True, blank=True, db_index=True)
     publish_time = models.TimeField(verbose_name=_('publication time'), default=default_publish_time, null=True, blank=True, db_index=True)
@@ -54,8 +54,9 @@ class SitesAbstractBase(models.Model):
         abstract = True
         
     sites = models.ManyToManyField(Site, verbose_name=_('sites'), default=get_default_sites)
-    on_site = CurrentSiteManager()
+    
     objects = models.Manager()
+    on_site = CurrentSiteManager()
 
 class SitesPublicationAbstractBase(PublicationAbstractBase, SitesAbstractBase):
     """ Abstract base class with sites selection and publication attributes. """
