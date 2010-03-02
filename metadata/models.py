@@ -63,7 +63,8 @@ class SitesPublicationAbstractBase(PublicationAbstractBase, SitesAbstractBase):
     
     class Meta:
         abstract = True
-    
+
+    objects = models.Manager()    
     published_on_site = CurrentSitePublicationManager(field_name='sites')
 
 class AuthorAbstractBase(models.Model):
