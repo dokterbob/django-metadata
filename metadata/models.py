@@ -56,7 +56,7 @@ class SitesAbstractBase(models.Model):
     sites = models.ManyToManyField(Site, verbose_name=_('sites'), default=get_default_sites)
     
     objects = models.Manager()
-    on_site = CurrentSiteManager()
+    on_site = CurrentSiteManager(field_name='sites')
 
 class SitesPublicationAbstractBase(PublicationAbstractBase, SitesAbstractBase):
     """ Abstract base class with sites selection and publication attributes. """
@@ -64,7 +64,7 @@ class SitesPublicationAbstractBase(PublicationAbstractBase, SitesAbstractBase):
     class Meta:
         abstract = True
     
-    published_on_site = CurrentSitePublicationManager()
+    published_on_site = CurrentSitePublicationManager(field_name='sites')
 
 class AuthorAbstractBase(models.Model):
     class Meta:
