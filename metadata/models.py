@@ -42,7 +42,7 @@ class PublicationAbstractBase(DateAbstractBase):
     
     publish_date = models.DateField(verbose_name=_('publication date'), default=default_publish_date, null=True, blank=True, db_index=True)
     publish_time = models.TimeField(verbose_name=_('publication time'), default=default_publish_time, null=True, blank=True, db_index=True)
-    publish = models.BooleanField(verbose_name=_('published'), default=True, db_index=True)
+    publish = models.BooleanField(verbose_name=_('published'), default=False, db_index=True)
 
 def get_default_sites():
     return [site.id for site in Site.objects.all()]
