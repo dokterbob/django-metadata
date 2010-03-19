@@ -1,0 +1,9 @@
+*.o
+*.pyc
+*.pyo
+.DS\_Store
+*.sqlite
+*.sw?
+/static/media/images
+portnumber
+settings_local.py
