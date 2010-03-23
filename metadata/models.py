@@ -1,6 +1,7 @@
 from datetime import datetime, time
 
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 
@@ -8,6 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.managers import CurrentSiteManager
+
 
 from managers import *
 
@@ -34,7 +36,7 @@ class PublicationAbstractBase(DateAbstractBase):
 
     class Meta:
         abstract = True
-        ordering = ['-publish_date', ] + DateAbstractBase.Meta.ordering
+        ordering = ['-publish_date', '-publish_time'] + DateAbstractBase.Meta.ordering
         get_latest_by = 'publish_date'
 
     objects = models.Manager()        
@@ -43,6 +45,24 @@ class PublicationAbstractBase(DateAbstractBase):
     publish_date = models.DateField(verbose_name=_('publication date'), default=default_publish_date, null=True, blank=True, db_index=True)
     publish_time = models.TimeField(verbose_name=_('publication time'), default=default_publish_time, null=True, blank=True, db_index=True)
     publish = models.BooleanField(verbose_name=_('published'), default=False, db_index=True)
+    
+    def get_next_by_published(self):
+        qs = self.__class__.published.filter(Q(publish_date__gt=self.publish_date) | \
+                (Q(publish_date=self.publish_date) & Q(publish_time__gt=self.publish_time)) )
+        
+        if qs.count():
+            return qs.order_by('publish_date','publish_time')[0]
+        
+        return None
+        
+    def get_previous_by_published(self):
+        qs = self.__class__.published.filter(Q(publish_date__lt=self.publish_date) | \
+                (Q(publish_date=self.publish_date) & Q(publish_time__lt=self.publish_time)) )
+        
+        if qs.count():
+            return qs.order_by('-publish_date','-publish_time')[0]
+
+        return None
 
 def get_default_sites():
     return [site.id for site in Site.objects.all()]
