@@ -6,7 +6,7 @@ Generic metadata abstract base classes for Django models.
 Abstract base classes
 ---------------------
 :Name: DateAbstractBase
-:Description: Abstract base class with creation and modification date.
+:: Abstract base class with creation and modification date.
 
 :Name: PublicationAbstractBase
 :Description: Abstract base class with publish option, creation, modification and publication date.
