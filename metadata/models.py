@@ -167,15 +167,3 @@ class CommentsAbstractBase(models.Model):
     allow_comments = models.BooleanField(default=True,
                                          verbose_name=_('allow comments'))
 
-
-class MetaDataAbstractBase(TitleAbstractBase,
-                           SlugAbstractBase,
-                           AuthorAbstractBase,
-                           DescriptionAbstractBase,
-                           SitesPublicationAbstractBase,
-                           CommentsAbstractBase):
-    """ Abstract base class containing all the above fields through
-        subclassing. """
-
-    class Meta:
-        abstract = True

@@ -42,6 +42,3 @@ CommentsAbstractBase
 ^^^^^^^^^^^^^^^^^^^^
 Abstract base class adding an `allow_comments` boolean field.
 
-MetaDataAbstractBase
-^^^^^^^^^^^^^^^^^^^^
-Abstract base class containing all the above fields through subclassing.
