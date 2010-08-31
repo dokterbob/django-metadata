@@ -3,6 +3,12 @@ django-metadata
 ===============
 Generic metadata abstract base classes for Django models.
 
+Settings
+========
+Currently there is one setting that can be done from `settings.py`:
+`METADATA_PUBLISH_DEFAULT`. This is a boolean representing the default initial
+publication state of a post.
+
 Abstract base classes
 =====================
 

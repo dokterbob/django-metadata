@@ -1,5 +1,7 @@
 from datetime import datetime, time
 
+from django.conf import settings
+
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
@@ -10,8 +12,9 @@ from django.contrib.sites.models import Site
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.managers import CurrentSiteManager
 
-from managers import *
+from metadata.managers import *
 
+PUBLISH_DEFAULT = getattr(settings, 'METADATA_PUBLISH_DEFAULT', True)
 
 class DateAbstractBase(models.Model):
     """ Abstract base class with creation and modification date. """
@@ -55,8 +58,8 @@ class PublicationAbstractBase(DateAbstractBase):
     publish_time = models.TimeField(verbose_name=_('publication time'),
                                     default=default_publish_time,
                                     null=True, blank=True, db_index=True)
-    publish = models.BooleanField(verbose_name=_('published'), default=False,
-                                  db_index=True)
+    publish = models.BooleanField(verbose_name=_('published'), 
+                                  default=PUBLISH_DEFAULT, db_index=True)
 
     def get_next_by_published(self):
         qobject = Q(publish_date__gt=self.publish_date) | \
