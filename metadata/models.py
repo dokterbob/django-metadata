@@ -14,6 +14,8 @@ from django.contrib.sites.managers import CurrentSiteManager
 from metadata.managers import *
 
 PUBLISH_DEFAULT = getattr(settings, 'METADATA_PUBLISH_DEFAULT', True)
+DESCRIPTION_REQUIRED = getattr(settings, 'METADATA_DESCRIPTION_REQUIRED', False)
+
 
 class DateAbstractBase(models.Model):
     """ Abstract base class with creation and modification date. """
@@ -135,7 +137,8 @@ class DescriptionAbstractBase(models.Model):
         abstract = True
 
     description = models.TextField(verbose_name=_('description'),
-                                   null=True, blank=True)
+                                   null=not DESCRIPTION_REQUIRED, 
+                                   blank=not DESCRIPTION_REQUIRED)
 
 
 class TitleAbstractBase(models.Model):
