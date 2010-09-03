@@ -109,7 +109,7 @@ class SitesPublicationAbstractBase(PublicationAbstractBase,
     """ Abstract base class with sites selection and publication
         attributes. """
 
-    class Meta:
+    class Meta(PublicationAbstractBase.Meta):
         abstract = True
 
     objects = models.Manager()
